@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="tinker.sample.android"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="tinker.sample.android">
 
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="22"/>
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="22" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".app.SampleApplication"
@@ -14,16 +18,16 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".service.SampleResultService"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity android:name=".app.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-
+        <activity android:name=".app.DemoActivity"></activity>
     </application>
 
 </manifest>
