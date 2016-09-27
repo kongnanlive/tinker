@@ -5,7 +5,7 @@ apply plugin: 'com.android.application'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:appcompat-v7:23.1.1"
+    compile "com.android.support:appcompat-v7:24.2.1"
     compile("com.tencent.tinker:tinker-android-lib:${TINKER_VERSION}") { changing = true }
     compile("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
     compile "com.android.support:multidex:1.0.1"
@@ -36,8 +36,8 @@ def gitSha() {
 def javaVersion = JavaVersion.VERSION_1_7
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     compileOptions {
         sourceCompatibility javaVersion
@@ -68,7 +68,7 @@ android {
     defaultConfig {
         applicationId "tinker.sample.android"
         minSdkVersion 10
-        targetSdkVersion 22
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0.0"
         /**
@@ -136,11 +136,11 @@ ext {
     tinkerEnabled = true
     //you should bak the following files
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-debug-0919-20-32-57.apk"
+    tinkerOldApkPath = "${bakPath}/app-debug-0927-11-42-48.apk"
     //proguard mapping file to build patch apk
     tinkerApplyMappingPath = "${bakPath}/"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/"
+    tinkerApplyResourcePath = "${bakPath}/app-debug-0927-11-42-48-R.txt"
 }
 
 
