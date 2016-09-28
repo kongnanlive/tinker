@@ -18,6 +18,7 @@ package tinker.sample.android.app;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
@@ -94,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showInfo(MainActivity.this);
+            }
+        });
+
+//        new AlertDialog.Builder(this).setTitle("哈哈哈哈").setMessage("金路大人我是打补丁进来的!").show();
+        findViewById(R.id.showDemo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DemoActivity.class));
             }
         });
     }

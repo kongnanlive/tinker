@@ -24,6 +24,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
@@ -32,6 +33,7 @@ import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 import tinker.sample.android.Log.MyLogImp;
+import tinker.sample.android.R;
 import tinker.sample.android.util.SampleApplicationContext;
 import tinker.sample.android.util.TinkerManager;
 
@@ -84,6 +86,10 @@ public class SampleApplicationLike extends DefaultApplicationLike {
 
         SampleApplicationContext.application = getApplication();
         SampleApplicationContext.context = getApplication();
+
+
+        Log.d("Tinker", getApplication().getResources().getString(R.string.app_name));
+
         TinkerManager.setTinkerApplicationLike(this);
         TinkerManager.initFastCrashProtect();
         //should set before tinker is installed
@@ -102,4 +108,8 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         getApplication().registerActivityLifecycleCallbacks(callback);
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }

@@ -24,6 +24,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".app.DemoActivity">
+        </activity>
+
     </application>
 
 </manifest>
