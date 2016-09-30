@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, DemoActivity.class));
             }
         });
+        new AlertDialog.Builder(this).setTitle("哈哈哈哈").setMessage("金路大人我是打补丁进来的!").show();
     }
 
     public boolean showInfo(Context context) {
