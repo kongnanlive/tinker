@@ -16,6 +16,7 @@
 
 package com.tencent.tinker.build.gradle.task
 
+import com.tencent.tinker.build.auxiliaryclass.AuxiliaryClassInjector
 import com.tencent.tinker.build.gradle.TinkerPatchPlugin
 import com.tencent.tinker.build.util.FileOperation
 import org.gradle.api.DefaultTask
@@ -86,6 +87,22 @@ public class TinkerProguardConfigTask extends DefaultTask {
         }
 
         fr.write(PROGUARD_CONFIG_SETTINGS)
+
+        // Write additional rules to keep auxiliary class, <init> and <clinit>
+        if (project.tinkerPatch.dex.usePreGeneratedPatchDex) {
+            def additionalKeptRules =
+                    "-dontwarn ${AuxiliaryClassInjector.AUXILIARY_CLASSNAME} \n" +
+                            '-keepclassmembers class * { \n' +
+                            '    <init>(...); \n' +
+                            '    static void <clinit>(...); \n' +
+                            '}\n' +
+                            "-keep class ${AuxiliaryClassInjector.AUXILIARY_CLASSNAME} {\n" +
+                            '    *;\n' +
+                            '}\n'
+            fr.write(additionalKeptRules)
+            fr.write('\n')
+        }
+
         fr.write("#your dex.loader patterns here\n")
         //they will removed when apply
         Iterable<String> loader = project.extensions.tinkerPatch.dex.loader
