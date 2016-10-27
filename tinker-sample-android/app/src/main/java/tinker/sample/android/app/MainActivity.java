@@ -105,7 +105,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, DemoActivity.class));
             }
         });
-        new AlertDialog.Builder(this).setTitle("哈哈哈哈").setMessage("金路大人我是打补丁进来的!").show();
+
+        findViewById(R.id.showDemo2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Demo2Activity.class));
+            }
+        });
+//        new AlertDialog.Builder(this).setTitle("哈哈哈哈").setMessage("金路大人我是打补丁进来的!").show();
     }
 
     public boolean showInfo(Context context) {

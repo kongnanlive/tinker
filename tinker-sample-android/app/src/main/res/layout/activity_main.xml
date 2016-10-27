@@ -65,4 +65,13 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/showInfo"
         android:text="show Demo"/>
+
+    <Button
+        android:id="@+id/showDemo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/showDemo"
+        android:text="show Demo2"/>
 </RelativeLayout>

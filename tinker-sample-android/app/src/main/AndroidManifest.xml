@@ -24,8 +24,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".app.DemoActivity">
-        </activity>
+        <activity android:name=".app.DemoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".app.Demo2Activity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
     </application>
 
