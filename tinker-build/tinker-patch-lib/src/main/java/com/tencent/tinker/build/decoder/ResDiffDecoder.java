@@ -92,11 +92,11 @@ public class ResDiffDecoder extends BaseDecoder {
 
     @Override
     public boolean patch(File oldFile, File newFile) throws IOException, TinkerPatchException {
-        String name = getRelativeString(newFile);
+        String name = getRelativePathStringToNewFile(newFile);
 
         //actually, it won't go below
         if (newFile == null || !newFile.exists()) {
-            String relativeStringByOldDir = getRelativeStringByOldDir(oldFile);
+            String relativeStringByOldDir = getRelativePathStringToOldFile(oldFile);
             if (Utils.checkFileInPattern(config.mResIgnoreChangePattern, relativeStringByOldDir)) {
                 Logger.e("found delete resource: " + relativeStringByOldDir + " ,but it match ignore change pattern, just ignore!");
                 return false;
@@ -178,25 +178,25 @@ public class ResDiffDecoder extends BaseDecoder {
             String relative;
             switch (mode) {
                 case TypedValue.ADD:
-                    relative = getRelativeString(newFile);
+                    relative = getRelativePathStringToNewFile(newFile);
                     Logger.d("Found add resource: " + relative);
                     log = "add resource: " + relative + ", oldSize=" + FileOperation.getFileSizes(oldFile) + ", newSize="
                         + FileOperation.getFileSizes(newFile);
                     break;
                 case TypedValue.MOD:
-                    relative = getRelativeString(newFile);
+                    relative = getRelativePathStringToNewFile(newFile);
                     Logger.d("Found modify resource: " + relative);
                     log = "modify resource: " + relative + ", oldSize=" + FileOperation.getFileSizes(oldFile) + ", newSize="
                         + FileOperation.getFileSizes(newFile);
                     break;
                 case TypedValue.DEL:
-                    relative = getRelativeStringByOldDir(oldFile);
+                    relative = getRelativePathStringToOldFile(oldFile);
                     Logger.d("Found deleted resource: " + relative);
                     log = "deleted resource: " + relative + ", oldSize=" + FileOperation.getFileSizes(oldFile) + ", newSize="
                         + FileOperation.getFileSizes(newFile);
                     break;
                 case TypedValue.LARGE_MOD:
-                    relative = getRelativeString(newFile);
+                    relative = getRelativePathStringToNewFile(newFile);
                     Logger.d("Found large modify resource: " + relative + " size:" + newFile.length());
                     log = "large modify resource: " + relative + ", oldSize=" + FileOperation.getFileSizes(oldFile) + ", newSize="
                         + FileOperation.getFileSizes(newFile);
@@ -235,8 +235,6 @@ public class ResDiffDecoder extends BaseDecoder {
             throw new TinkerPatchException("resource must contain AndroidManifest.xml pattern");
         }
 
-        addAssetsFileForTestResource();
-
         //check gradle build
         if (config.mUsingGradle) {
             final boolean ignoreWarning = config.mIgnoreWarning;
@@ -273,6 +271,9 @@ public class ResDiffDecoder extends BaseDecoder {
         removeIgnoreChangeFile(deletedSet);
         removeIgnoreChangeFile(addedSet);
         removeIgnoreChangeFile(largeModifiedSet);
+
+        // last add test res in assets for user cannot ignore it;
+        addAssetsFileForTestResource();
 
         File tempResZip = new File(config.mOutFolder + File.separator + TEMP_RES_ZIP);
         final File tempResFiles = config.mTempResultDir;
@@ -421,7 +422,7 @@ public class ResDiffDecoder extends BaseDecoder {
             if (Utils.checkFileInPattern(config.mResFilePattern, patternKey)) {
                 //not contain in new path, is deleted
                 if (!newPath.toFile().exists()) {
-                    deletedFiles.add(relativePath.toString());
+                    deletedFiles.add(patternKey);
                     writeResLog(newPath.toFile(), file.toFile(), TypedValue.DEL);
                 }
                 return FileVisitResult.CONTINUE;

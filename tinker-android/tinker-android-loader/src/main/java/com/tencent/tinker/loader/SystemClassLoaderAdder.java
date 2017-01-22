@@ -72,6 +72,7 @@ public class SystemClassLoaderAdder {
             }
             //install done
             sPatchDexCount = files.size();
+            Log.i(TAG, "after loaded classloader: " + classLoader + ", dex size:" + sPatchDexCount);
 
             if (!checkDexInstall(classLoader)) {
                 //reset patch dex
@@ -109,7 +110,7 @@ public class SystemClassLoaderAdder {
     }
 
     /**
-     * Installer for platform versions 19.
+     * Installer for platform versions 23.
      */
     private static final class V23 {
 
